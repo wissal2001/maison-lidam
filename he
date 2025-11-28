@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>ClientHub - Portail Interne</title>
+</head>
+<body>
+    <h1>Bienvenue sur le Portail Interne ClientHub</h1>
+    <p>Cette page est servie par Nginx dans un conteneur.</p>
+    <p>Accédez à l'API pour vérifier les données : <a href="http://localhost:5000/clients">http://localhost:5000/clients</a></p>
+</body>
+</html>
