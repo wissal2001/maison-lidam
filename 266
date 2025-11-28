@@ -1,0 +1,167 @@
+sysadmin@Ubuntu24:~/gitprojet$ nano Dockerfile 
+sysadmin@Ubuntu24:~/gitprojet$ docker-compose up --build
+WARN[0000] Found multiple config files with supported names: /home/sysadmin/gitprojet/docker-compose.yml, /home/sysadmin/gitprojet/docker-compose.yaml 
+WARN[0000] Using /home/sysadmin/gitprojet/docker-compose.yml 
+#1 [internal] load local bake definitions
+#1 reading from stdin 493B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 251B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.10-slim
+#3 DONE 0.3s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [1/5] FROM docker.io/library/python:3.10-slim@sha256:c299e10e0070171113f9a1f109dd05e7e634fa94589b056e0e87bb22b2b382a2
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 102B done
+#6 DONE 0.0s
+
+#7 [2/5] WORKDIR /usr/src/app
+#7 CACHED
+
+#8 [3/5] COPY requirements.txt .
+#8 CACHED
+
+#9 [4/5] RUN pip install --no-cache-dir -r requirements.txt
+#9 CACHED
+
+#10 [5/5] COPY app.py .
+#10 CACHED
+
+#11 exporting to image
+#11 exporting layers done
+#11 writing image sha256:2e04a9be6e85e72703d4a59d5bf620d3a29087ffb02ba737ea9ffabc161e67ae done
+#11 naming to docker.io/library/gitprojet-api done
+#11 DONE 0.0s
+
+#12 resolving provenance for metadata file
+#12 DONE 0.0s
+[+] Running 2/2
+ ✔ gitprojet-api            Built                                                 0.0s 
+ ✔ Container clienthub-api  Recreated                                             0.1s 
+Attaching to clienthub-api, clienthub-web, gitprojet-mysql
+gitprojet-mysql  | 2025-11-28 11:15:12+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 5.7.44-1.el7 started.
+clienthub-web    | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+clienthub-web    | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+clienthub-web    | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+clienthub-web    | 10-listen-on-ipv6-by-default.sh: info: IPv6 listen already enabled
+clienthub-web    | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+clienthub-web    | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+clienthub-web    | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+clienthub-web    | /docker-entrypoint.sh: Configuration complete; ready for start up
+clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: using the "epoll" event method
+clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: nginx/1.29.3
+clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: built by gcc 14.2.0 (Debian 14.2.0-19) 
+clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: OS: Linux 6.14.0-36-generic
+clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1024:524288
+clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: start worker processes
+clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: start worker process 22
+clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: start worker process 23
+clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: start worker process 24
+clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: start worker process 25
+clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: start worker process 26
+clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: start worker process 27
+clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: start worker process 28
+clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: start worker process 29
+gitprojet-mysql  | 2025-11-28 11:15:13+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+gitprojet-mysql  | 2025-11-28 11:15:13+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 5.7.44-1.el7 started.
+gitprojet-mysql  | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+gitprojet-mysql  | 2025-11-28T11:15:13.649300Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).
+gitprojet-mysql  | 2025-11-28T11:15:13.650516Z 0 [Note] mysqld (mysqld 5.7.44) starting as process 1 ...
+gitprojet-mysql  | 2025-11-28T11:15:13.654131Z 0 [Note] InnoDB: PUNCH HOLE support available
+gitprojet-mysql  | 2025-11-28T11:15:13.654227Z 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+gitprojet-mysql  | 2025-11-28T11:15:13.654233Z 0 [Note] InnoDB: Uses event mutexes
+gitprojet-mysql  | 2025-11-28T11:15:13.654236Z 0 [Note] InnoDB: GCC builtin __atomic_thread_fence() is used for memory barrier
+gitprojet-mysql  | 2025-11-28T11:15:13.654238Z 0 [Note] InnoDB: Compressed tables use zlib 1.2.13
+gitprojet-mysql  | 2025-11-28T11:15:13.654241Z 0 [Note] InnoDB: Using Linux native AIO
+gitprojet-mysql  | 2025-11-28T11:15:13.654588Z 0 [Note] InnoDB: Number of pools: 1
+gitprojet-mysql  | 2025-11-28T11:15:13.654683Z 0 [Note] InnoDB: Using CPU crc32 instructions
+gitprojet-mysql  | 2025-11-28T11:15:13.657570Z 0 [Note] InnoDB: Initializing buffer pool, total size = 128M, instances = 1, chunk size = 128M
+gitprojet-mysql  | 2025-11-28T11:15:13.665778Z 0 [Note] InnoDB: Completed initialization of buffer pool
+gitprojet-mysql  | 2025-11-28T11:15:13.669445Z 0 [Note] InnoDB: If the mysqld execution user is authorized, page cleaner thread priority can be changed. See the man page of setpriority().
+gitprojet-mysql  | 2025-11-28T11:15:13.681335Z 0 [ERROR] [FATAL] InnoDB: Table flags are 0 in the data dictionary but the flags in file ./ibdata1 are 0x4800!
+gitprojet-mysql  | 2025-11-28 11:15:13 0x7cf956705880  InnoDB: Assertion failure in thread 137410338904192 in file ut0ut.cc line 921
+gitprojet-mysql  | InnoDB: We intentionally generate a memory trap.
+gitprojet-mysql  | InnoDB: Submit a detailed bug report to http://bugs.mysql.com.
+gitprojet-mysql  | InnoDB: If you get repeated assertion failures or crashes, even
+gitprojet-mysql  | InnoDB: immediately after the mysqld startup, there may be
+gitprojet-mysql  | InnoDB: corruption in the InnoDB tablespace. Please refer to
+gitprojet-mysql  | InnoDB: http://dev.mysql.com/doc/refman/5.7/en/forcing-innodb-recovery.html
+gitprojet-mysql  | InnoDB: about forcing recovery.
+gitprojet-mysql  | 11:15:13 UTC - mysqld got signal 6 ;
+gitprojet-mysql  | This could be because you hit a bug. It is also possible that this binary
+gitprojet-mysql  | or one of the libraries it was linked against is corrupt, improperly built,
+gitprojet-mysql  | or misconfigured. This error can also be caused by malfunctioning hardware.
+gitprojet-mysql  | Attempting to collect some information that could help diagnose the problem.
+gitprojet-mysql  | As this is a crash and something is definitely wrong, the information
+gitprojet-mysql  | collection process might fail.
+gitprojet-mysql  | 
+gitprojet-mysql  | key_buffer_size=8388608
+gitprojet-mysql  | read_buffer_size=131072
+gitprojet-mysql  | max_used_connections=0
+gitprojet-mysql  | max_threads=151
+gitprojet-mysql  | thread_count=0
+gitprojet-mysql  | connection_count=0
+gitprojet-mysql  | It is possible that mysqld could use up to 
+gitprojet-mysql  | key_buffer_size + (read_buffer_size + sort_buffer_size)*max_threads = 68199 K  bytes of memory
+gitprojet-mysql  | Hope that's ok; if not, decrease some variables in the equation.
+gitprojet-mysql  | 
+gitprojet-mysql  | Thread pointer: 0x0
+gitprojet-mysql  | Attempting backtrace. You can use the following information to find out
+gitprojet-mysql  | where mysqld died. If you see no messages after this, something went
+gitprojet-mysql  | terribly wrong...
+gitprojet-mysql  | stack_bottom = 0 thread_stack 0x40000
+gitprojet-mysql  | mysqld(my_print_stacktrace+0x3b)[0xf11c0b]
+gitprojet-mysql  | mysqld(handle_fatal_signal+0x486)[0x79f7d6]
+gitprojet-mysql  | /lib64/libpthread.so.0(+0xf8c0)[0x7cf9562ee8c0]
+gitprojet-mysql  | /lib64/libc.so.6(gsignal+0x37)[0x7cf954601387]
+gitprojet-mysql  | /lib64/libc.so.6(abort+0x148)[0x7cf954602a78]
+gitprojet-mysql  | mysqld[0x76f748]
+gitprojet-mysql  | mysqld(_ZN2ib5fatalD1Ev+0xfd)[0x10e97cd]
+gitprojet-mysql  | mysqld[0x11a14c2]
+gitprojet-mysql  | mysqld[0x11a1a0b]
+gitprojet-mysql  | mysqld(_Z6fil_ioRK9IORequestbRK9page_id_tRK11page_size_tmmPvS8_+0x208)[0x11ad238]
+gitprojet-mysql  | mysqld(_Z13buf_read_pageRK9page_id_tRK11page_size_t+0xe4)[0x115b594]
+gitprojet-mysql  | mysqld(_Z16buf_page_get_genRK9page_id_tRK11page_size_tmP11buf_block_tmPKcmP5mtr_tb+0x42d)[0x112a96d]
+gitprojet-mysql  | mysqld(_Z31trx_rseg_get_n_undo_tablespacesPm+0x15d)[0x10c892d]
+gitprojet-mysql  | mysqld[0x1090758]
+gitprojet-mysql  | mysqld(_Z34innobase_start_or_create_for_mysqlv+0x3996)[0x1094ea6]
+gitprojet-mysql  | mysqld[0xf5a89f]
+gitprojet-mysql  | mysqld(_Z24ha_initialize_handlertonP13st_plugin_int+0x51)[0x7f2671]
+gitprojet-mysql  | mysqld[0xcf2c85]
+gitprojet-mysql  | mysqld(_Z40plugin_register_builtin_and_init_core_sePiPPc+0x2f0)[0xcf8fb0]
+gitprojet-mysql  | mysqld[0x797cc4]
+gitprojet-mysql  | mysqld(_Z11mysqld_mainiPPc+0xa85)[0x79b4e5]
+gitprojet-mysql  | /lib64/libc.so.6(__libc_start_main+0xf5)[0x7cf9545ed555]
+gitprojet-mysql  | mysqld[0x78f154]
+gitprojet-mysql  | The manual page at http://dev.mysql.com/doc/mysql/en/crashing.html contains
+gitprojet-mysql  | information that should help you find out what is causing the crash.
+clienthub-api    |  * Serving Flask app 'app'
+clienthub-api    |  * Debug mode: off
+clienthub-api    |  * Serving Flask app 'app'
+clienthub-api    |  * Debug mode: off
+clienthub-api    | WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+clienthub-api    |  * Running on all addresses (0.0.0.0)
+clienthub-api    |  * Running on http://127.0.0.1:5000
+clienthub-api    |  * Running on http://172.22.0.4:5000
+clienthub-api    | Press CTRL+C to quit
+clienthub-api    | WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+clienthub-api    |  * Running on all addresses (0.0.0.0)
+clienthub-api    |  * Running on http://127.0.0.1:5000
+clienthub-api    |  * Running on http://172.22.0.4:5000
+clienthub-api    | Press CTRL+C to quit
+gitprojet-mysql exited with code 2
+
+clienthub-api    | 172.22.0.1 - - [28/Nov/2025 11:15:16] "GET / HTTP/1.1" 200 -
+clienthub-api    | 172.22.0.1 - - [28/Nov/2025 11:15:17] "GET / HTTP/1.1" 200 -
+clienthub-api    | 172.22.0.1 - - [28/Nov/2025 11:15:17] "GET / HTTP/1.1" 200 -
+
+
