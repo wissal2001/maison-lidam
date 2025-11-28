@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>ClientHub - Portail Interne</title>
-</head>
-<body>
-    <h1>Bienvenue sur le Portail Interne ClientHub</h1>
-    <p>Cette page est servie par Nginx dans un conteneur.</p>
-    <p>Accédez à l'API pour vérifier les données : <a href="http://localhost:5000/clients">http://localhost:5000/clients</a></p>
-</body>
-</html>
+-- Création de la table clients
+CREATE TABLE IF NOT EXISTS clients (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL
+);
+
+-- Insertion de données de test
+INSERT INTO clients (nom, email) VALUES
+('Alice Dupont', 'alice.d@clienthub.com'),
+('Bob Martin', 'bob.m@clienthub.com'),
+('Charlie Dubois', 'charlie.d@clienthub.com');
