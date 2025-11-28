@@ -1,12 +1,9 @@
--- Création de la table clients
-CREATE TABLE IF NOT EXISTS clients (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL
-);
+FROM python:3.10-slim
+WORKDIR /usr/src/app
 
--- Insertion de données de test
-INSERT INTO clients (nom, email) VALUES
-('Alice Dupont', 'alice.d@clienthub.com'),
-('Bob Martin', 'bob.m@clienthub.com'),
-('Charlie Dubois', 'charlie.d@clienthub.com');
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+EXPOSE 5000
+# 5. Commande de démarrage
+CMD [ "flask", "run", "--host", "0.0.0.0" ]
