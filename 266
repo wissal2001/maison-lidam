@@ -1,54 +1,12 @@
-version: "3.8"
+FROM python:3.10-slim
 
-services:
-  db:
-    image: mysql:8.0
-    container_name: clienthub_db
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: clienthub
-      MYSQL_USER: clientuser
-      MYSQL_PASSWORD: clientpass
-    volumes:
-      - db_data:/var/lib/mysql
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-    networks:
-      - clienthub_net
-    restart: unless-stopped
+WORKDIR /app
 
-  api:
-    build:
-      context: ./api
-    container_name: clienthub_api
-    environment:
-      DB_HOST: db
-      DB_PORT: 3306
-      DB_NAME: clienthub
-      DB_USER: clientuser
-      DB_PASSWORD: clientpass
-      FLASK_ENV: production
-    depends_on:
-      - db
-    ports:
-      - "5000:5000"
-    networks:
-      - clienthub_net
-    restart: unless-stopped
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-  web:
-    image: nginx:stable
-    container_name: clienthub_web
-    volumes:
-      - ./site:/usr/share/nginx/html:ro
-    ports:
-      - "8080:80"
-    networks:
-      - clienthub_net
-    restart: unless-stopped
+COPY . .
 
-volumes:
-  db_data:
+EXPOSE 5000
 
-networks:
-  clienthub_net:
-    driver: bridge
+CMD ["python", "app.py"]
