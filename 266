@@ -1,2 +1,9 @@
-<h1>Bienvenue sur ClientHub</h1>
-<p>Portail interne</p>
+CREATE TABLE IF NOT EXISTS clients (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+INSERT INTO clients (name) VALUES
+("Alice"),
+("Bob"),
+("Charlie");
