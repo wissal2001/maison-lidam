@@ -1,34 +1,54 @@
-<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8" />
-  <title>ClientHub - Portail interne</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    body { font-family: Arial, Helvetica, sans-serif; margin: 40px; }
-    header { border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 20px; }
-    .card { padding: 15px; border: 1px solid #eee; border-radius: 6px; max-width: 600px; }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>ClientHub</h1>
-    <p>Portail interne — documentation & accès aux services</p>
-  </header>
+version: "3.8"
 
-  <main>
-    <div class="card">
-      <h2>Services</h2>
-      <ul>
-        <li>API Flask : <code>/health</code> et <code>/clients</code></li>
-        <li>Base de données : MySQL (persistée)</li>
-      </ul>
-      <p>Tests rapides :</p>
-      <ul>
-        <li><a href="/health">/health</a> (API)</li>
-        <li><a href="/clients">/clients</a> (API)</li>
-      </ul>
-    </div>
-  </main>
-</body>
-</html>
+services:
+  db:
+    image: mysql:8.0
+    container_name: clienthub_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: clienthub
+      MYSQL_USER: clientuser
+      MYSQL_PASSWORD: clientpass
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - clienthub_net
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ./api
+    container_name: clienthub_api
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: clienthub
+      DB_USER: clientuser
+      DB_PASSWORD: clientpass
+      FLASK_ENV: production
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    networks:
+      - clienthub_net
+    restart: unless-stopped
+
+  web:
+    image: nginx:stable
+    container_name: clienthub_web
+    volumes:
+      - ./site:/usr/share/nginx/html:ro
+    ports:
+      - "8080:80"
+    networks:
+      - clienthub_net
+    restart: unless-stopped
+
+volumes:
+  db_data:
+
+networks:
+  clienthub_net:
+    driver: bridge
