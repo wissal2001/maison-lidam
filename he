@@ -1,47 +1,47 @@
-import os
-from flask import Flask, jsonify
-import pymysql.cursors
+version: '3.8'
 
-app = Flask(__name__)
-DB_HOST = os.environ.get('DB_HOST', 'db') # 'db' est le nom du service dans docker-compose
-DB_USER = os.environ.get('DB_USER', 'clienthub_user')
-DB_PASSWORD = os.environ.get('DB_PASSWORD', '123456')
-DB_NAME = os.environ.get('DB_NAME', 'clienthub_db')
-DB_PORT = int(os.environ.get('DB_PORT', 3306))
+services:
+  api:
+    build: . # Utilise le Dockerfile local
+    container_name: clienthub-api
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: db
+      DB_USER: Ubuntu24
+      DB_PASSWORD: 123456
+      DB_NAME: clienthub_db
+      DB_PORT: 3306
+    networks:
+      - clienthub_network
+    depends_on:
+      - db 
+  db:
+    image: mysql:8.0
+    container_name: gitprojet-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: gitprojet
+      MYSQL_USER: Ubuntu24
+      MYSQL_PASSWORD: 123456
+    volumes:
+      - clienthub_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - clienthub_network
+  web:
+    image: nginx:latest
+    container_name: clienthub-web
+    ports:
+      - "80:80"
+    volumes:
+      - ./site:/usr/share/nginx/html:ro
+    networks:
+      - clienthub_network
 
-def get_db_connection():
-    return pymysql.connect(
-        host=DB_HOST,
-        user=DB_USER,
-        password=DB_PASSWORD,
-        database=DB_NAME,
-        port=DB_PORT,
-        cursorclass=pymysql.cursors.DictCursor
-    )
+networks:
+  clienthub_network:
+    driver: bridge
 
-def init_db():
-    try:
-        conn = get_db_connection()
-        conn.close()
-        print("INFO: Connexion à la base de données réussie.")
-    except Exception as e:
-        print(f"ERREUR: Impossible de se connecter à la base de données : {e}")
-init_db()
-
-@app.route('/health', methods=['GET'])
-def health_check():
-    return jsonify({"status": "ok"})
-@app.route('/clients', methods=['GET'])
-def list_clients():
-    clients = []
-    try:
-        conn = get_db_connection()
-        with conn.cursor() as cursor:
-            cursor.execute("SELECT id, nom, email FROM clients")
-            clients = cursor.fetchall()
-    except Exception as e:
-        return jsonify({"error": "Erreur de base de données", "details": str(e)}), 500
-    return jsonify({"clients": clients, "count": len(clients)})
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+volumes:
+  clienthub_data:
