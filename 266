@@ -1,64 +1,34 @@
-    return pymysql.connect(
-        host=DB_HOST,
-        user=DB_USER,
-        password=DB_PASSWORD,
-        database=DB_NAME,
-        port=DB_PORT,
-        cursorclass=DictCursor,
-        autocommit=True
-    )
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>ClientHub - Portail interne</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; margin: 40px; }
+    header { border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 20px; }
+    .card { padding: 15px; border: 1px solid #eee; border-radius: 6px; max-width: 600px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ClientHub</h1>
+    <p>Portail interne — documentation & accès aux services</p>
+  </header>
 
-def wait_for_db(retries=15, delay=2):
-    for i in range(retries):
-        try:
-            conn = get_connection()
-            conn.close()
-            return True
-        except Exception:
-            time.sleep(delay)
-    return False
-
-def ensure_table_and_seed():
-    try:
-        conn = get_connection()
-        with conn.cursor() as cur:
-            cur.execute("""
-                CREATE TABLE IF NOT EXISTS clients (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    name VARCHAR(255) NOT NULL
-                )
-            """)
-            # Insert sample data only if table empty
-            cur.execute("SELECT COUNT(*) AS cnt FROM clients")
-            cnt = cur.fetchone()["cnt"]
-            if cnt == 0:
-                cur.executemany(
-                    "INSERT INTO clients (name) VALUES (%s)",
-                    [("Alice",), ("Bob",), ("Charlie",)]
-                )
-    except Exception as e:
-        app.logger.error("DB init error: %s", e)
-
-@app.route("/health", methods=["GET"])
-def health():
-    return jsonify({"status": "ok"})
-
-@app.route("/clients", methods=["GET"])
-def clients():
-    try:
-        conn = get_connection()
-        with conn.cursor() as cur:
-            cur.execute("SELECT id, name FROM clients")
-            rows = cur.fetchall()
-        return jsonify(rows)
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-if __name__ == "__main__":
-    # Wait DB and ensure table on app start (helpful for dev)
-    if wait_for_db():
-        ensure_table_and_seed()
-    else:
-        app.logger.error("Could not connect to DB on startup.")
-    # host 0.0.0.0 so container port is accessible
-    app.run(host="0.0.0.0", port=5000)
+  <main>
+    <div class="card">
+      <h2>Services</h2>
+      <ul>
+        <li>API Flask : <code>/health</code> et <code>/clients</code></li>
+        <li>Base de données : MySQL (persistée)</li>
+      </ul>
+      <p>Tests rapides :</p>
+      <ul>
+        <li><a href="/health">/health</a> (API)</li>
+        <li><a href="/clients">/clients</a> (API)</li>
+      </ul>
+    </div>
+  </main>
+</body>
+</html>
