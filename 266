@@ -1,4 +1,5 @@
-sysadmin@Ubuntu24:~/gitprojet$ nano Dockerfile 
+sysadmin@Ubuntu24:~/gitprojet$ docker volume rm gitprojet_clienthub_data
+gitprojet_clienthub_data
 sysadmin@Ubuntu24:~/gitprojet$ docker-compose up --build
 WARN[0000] Found multiple config files with supported names: /home/sysadmin/gitprojet/docker-compose.yml, /home/sysadmin/gitprojet/docker-compose.yaml 
 WARN[0000] Using /home/sysadmin/gitprojet/docker-compose.yml 
@@ -11,7 +12,7 @@ WARN[0000] Using /home/sysadmin/gitprojet/docker-compose.yml
 #2 DONE 0.0s
 
 #3 [internal] load metadata for docker.io/library/python:3.10-slim
-#3 DONE 0.3s
+#3 DONE 1.0s
 
 #4 [internal] load .dockerignore
 #4 transferring context: 2B done
@@ -21,7 +22,7 @@ WARN[0000] Using /home/sysadmin/gitprojet/docker-compose.yml
 #5 DONE 0.0s
 
 #6 [internal] load build context
-#6 transferring context: 102B done
+#6 transferring context: 63B done
 #6 DONE 0.0s
 
 #7 [2/5] WORKDIR /usr/src/app
@@ -38,130 +39,218 @@ WARN[0000] Using /home/sysadmin/gitprojet/docker-compose.yml
 
 #11 exporting to image
 #11 exporting layers done
-#11 writing image sha256:2e04a9be6e85e72703d4a59d5bf620d3a29087ffb02ba737ea9ffabc161e67ae done
+#11 writing image sha256:e58fe6fadfece70bf45c97de7a031a9942f1472e89f3fca925859c1b4cc7ea8a done
 #11 naming to docker.io/library/gitprojet-api done
 #11 DONE 0.0s
 
 #12 resolving provenance for metadata file
 #12 DONE 0.0s
-[+] Running 2/2
- ✔ gitprojet-api            Built                                                 0.0s 
- ✔ Container clienthub-api  Recreated                                             0.1s 
+[+] Running 6/6
+ ✔ gitprojet-api                        Built                                     0.0s 
+ ✔ Network gitprojet_clienthub_network  Created                                   0.1s 
+ ✔ Volume "gitprojet_clienthub_data"    Cr...                                     0.0s 
+ ✔ Container gitprojet-mysql            Created                                   0.1s 
+ ✔ Container clienthub-web              Created                                   0.1s 
+ ✔ Container clienthub-api              Created                                   0.0s 
 Attaching to clienthub-api, clienthub-web, gitprojet-mysql
-gitprojet-mysql  | 2025-11-28 11:15:12+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 5.7.44-1.el7 started.
-clienthub-web    | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
-clienthub-web    | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
-clienthub-web    | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
-clienthub-web    | 10-listen-on-ipv6-by-default.sh: info: IPv6 listen already enabled
+clienthub-web  | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+clienthub-web  | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+clienthub-web  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+clienthub-web  | 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+gitprojet-mysql  | 2025-11-28 11:20:25+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 5.7.44-1.el7 started.
+clienthub-web    | 10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf
 clienthub-web    | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
 clienthub-web    | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
 clienthub-web    | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
 clienthub-web    | /docker-entrypoint.sh: Configuration complete; ready for start up
-clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: using the "epoll" event method
-clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: nginx/1.29.3
-clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: built by gcc 14.2.0 (Debian 14.2.0-19) 
-clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: OS: Linux 6.14.0-36-generic
-clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1024:524288
-clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: start worker processes
-clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: start worker process 22
-clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: start worker process 23
-clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: start worker process 24
-clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: start worker process 25
-clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: start worker process 26
-clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: start worker process 27
-clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: start worker process 28
-clienthub-web    | 2025/11/28 11:15:13 [notice] 1#1: start worker process 29
-gitprojet-mysql  | 2025-11-28 11:15:13+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
-gitprojet-mysql  | 2025-11-28 11:15:13+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 5.7.44-1.el7 started.
+clienthub-web    | 2025/11/28 11:20:25 [notice] 1#1: using the "epoll" event method
+clienthub-web    | 2025/11/28 11:20:25 [notice] 1#1: nginx/1.29.3
+clienthub-web    | 2025/11/28 11:20:25 [notice] 1#1: built by gcc 14.2.0 (Debian 14.2.0-19) 
+clienthub-web    | 2025/11/28 11:20:25 [notice] 1#1: OS: Linux 6.14.0-36-generic
+clienthub-web    | 2025/11/28 11:20:25 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1024:524288
+clienthub-web    | 2025/11/28 11:20:25 [notice] 1#1: start worker processes
+clienthub-web    | 2025/11/28 11:20:25 [notice] 1#1: start worker process 29
+clienthub-web    | 2025/11/28 11:20:25 [notice] 1#1: start worker process 30
+clienthub-web    | 2025/11/28 11:20:25 [notice] 1#1: start worker process 31
+clienthub-web    | 2025/11/28 11:20:25 [notice] 1#1: start worker process 32
+clienthub-web    | 2025/11/28 11:20:25 [notice] 1#1: start worker process 33
+clienthub-web    | 2025/11/28 11:20:25 [notice] 1#1: start worker process 34
+clienthub-web    | 2025/11/28 11:20:25 [notice] 1#1: start worker process 35
+clienthub-web    | 2025/11/28 11:20:25 [notice] 1#1: start worker process 36
+gitprojet-mysql  | 2025-11-28 11:20:25+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+gitprojet-mysql  | 2025-11-28 11:20:25+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 5.7.44-1.el7 started.
+gitprojet-mysql  | 2025-11-28 11:20:25+00:00 [Note] [Entrypoint]: Initializing database files
+gitprojet-mysql  | 2025-11-28T11:20:25.642392Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).
+gitprojet-mysql  | 2025-11-28T11:20:25.848869Z 0 [Warning] InnoDB: New log files created, LSN=45790
+gitprojet-mysql  | 2025-11-28T11:20:25.906297Z 0 [Warning] InnoDB: Creating foreign key constraint system tables.
+gitprojet-mysql  | 2025-11-28T11:20:25.975247Z 0 [Warning] No existing UUID has been found, so we assume that this is the first time that this server has been started. Generating a new UUID: 3ce5b013-cc4c-11f0-8b7e-d25894693fbb.
+gitprojet-mysql  | 2025-11-28T11:20:25.977581Z 0 [Warning] Gtid table is not ready to be used. Table 'mysql.gtid_executed' cannot be opened.
+clienthub-api    |  * Serving Flask app 'app'
+clienthub-api    |  * Debug mode: off
+clienthub-api    | WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+clienthub-api    |  * Running on all addresses (0.0.0.0)
+clienthub-api    |  * Running on http://127.0.0.1:5000
+clienthub-api    |  * Running on http://172.22.0.4:5000
+clienthub-api    | Press CTRL+C to quit
+gitprojet-mysql  | 2025-11-28T11:20:26.442374Z 0 [Warning] A deprecated TLS version TLSv1 is enabled. Please use TLSv1.2 or higher.
+gitprojet-mysql  | 2025-11-28T11:20:26.442406Z 0 [Warning] A deprecated TLS version TLSv1.1 is enabled. Please use TLSv1.2 or higher.
+gitprojet-mysql  | 2025-11-28T11:20:26.444893Z 0 [Warning] CA certificate ca.pem is self signed.
+gitprojet-mysql  | 2025-11-28T11:20:26.625345Z 1 [Warning] root@localhost is created with an empty password ! Please consider switching off the --initialize-insecure option.
+gitprojet-mysql  | 2025-11-28 11:20:28+00:00 [Note] [Entrypoint]: Database files initialized
+gitprojet-mysql  | 2025-11-28 11:20:28+00:00 [Note] [Entrypoint]: Starting temporary server
+gitprojet-mysql  | 2025-11-28 11:20:28+00:00 [Note] [Entrypoint]: Waiting for server startup
+gitprojet-mysql  | 2025-11-28T11:20:29.256571Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).
+gitprojet-mysql  | 2025-11-28T11:20:29.280291Z 0 [Note] mysqld (mysqld 5.7.44) starting as process 126 ...
+gitprojet-mysql  | 2025-11-28T11:20:29.285993Z 0 [Note] InnoDB: PUNCH HOLE support available
+gitprojet-mysql  | 2025-11-28T11:20:29.286032Z 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+gitprojet-mysql  | 2025-11-28T11:20:29.286037Z 0 [Note] InnoDB: Uses event mutexes
+gitprojet-mysql  | 2025-11-28T11:20:29.286039Z 0 [Note] InnoDB: GCC builtin __atomic_thread_fence() is used for memory barrier
+gitprojet-mysql  | 2025-11-28T11:20:29.286041Z 0 [Note] InnoDB: Compressed tables use zlib 1.2.13
+gitprojet-mysql  | 2025-11-28T11:20:29.286043Z 0 [Note] InnoDB: Using Linux native AIO
+gitprojet-mysql  | 2025-11-28T11:20:29.286518Z 0 [Note] InnoDB: Number of pools: 1
+gitprojet-mysql  | 2025-11-28T11:20:29.286832Z 0 [Note] InnoDB: Using CPU crc32 instructions
+gitprojet-mysql  | 2025-11-28T11:20:29.291649Z 0 [Note] InnoDB: Initializing buffer pool, total size = 128M, instances = 1, chunk size = 128M
+gitprojet-mysql  | 2025-11-28T11:20:29.310652Z 0 [Note] InnoDB: Completed initialization of buffer pool
+gitprojet-mysql  | 2025-11-28T11:20:29.313787Z 0 [Note] InnoDB: If the mysqld execution user is authorized, page cleaner thread priority can be changed. See the man page of setpriority().
+gitprojet-mysql  | 2025-11-28T11:20:29.327354Z 0 [Note] InnoDB: Highest supported file format is Barracuda.
+gitprojet-mysql  | 2025-11-28T11:20:29.338769Z 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+gitprojet-mysql  | 2025-11-28T11:20:29.338870Z 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+gitprojet-mysql  | 2025-11-28T11:20:29.447007Z 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+gitprojet-mysql  | 2025-11-28T11:20:29.448657Z 0 [Note] InnoDB: 96 redo rollback segment(s) found. 96 redo rollback segment(s) are active.
+gitprojet-mysql  | 2025-11-28T11:20:29.448697Z 0 [Note] InnoDB: 32 non-redo rollback segment(s) are active.
+gitprojet-mysql  | 2025-11-28T11:20:29.449631Z 0 [Note] InnoDB: 5.7.44 started; log sequence number 2768291
+gitprojet-mysql  | 2025-11-28T11:20:29.479134Z 0 [Note] Plugin 'FEDERATED' is disabled.
+gitprojet-mysql  | 2025-11-28T11:20:29.484722Z 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+gitprojet-mysql  | 2025-11-28T11:20:29.516687Z 0 [Note] InnoDB: Buffer pool(s) load completed at 251128 11:20:29
+gitprojet-mysql  | 2025-11-28T11:20:29.600910Z 0 [Note] Found ca.pem, server-cert.pem and server-key.pem in data directory. Trying to enable SSL support using them.
+gitprojet-mysql  | 2025-11-28T11:20:29.600944Z 0 [Note] Skipping generation of SSL certificates as certificate files are present in data directory.
+gitprojet-mysql  | 2025-11-28T11:20:29.600949Z 0 [Warning] A deprecated TLS version TLSv1 is enabled. Please use TLSv1.2 or higher.
+gitprojet-mysql  | 2025-11-28T11:20:29.600951Z 0 [Warning] A deprecated TLS version TLSv1.1 is enabled. Please use TLSv1.2 or higher.
+gitprojet-mysql  | 2025-11-28T11:20:29.601901Z 0 [Warning] CA certificate ca.pem is self signed.
+gitprojet-mysql  | 2025-11-28T11:20:29.601973Z 0 [Note] Skipping generation of RSA key pair as key files are present in data directory.
+gitprojet-mysql  | 2025-11-28T11:20:29.613012Z 0 [Warning] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+gitprojet-mysql  | 2025-11-28T11:20:29.658828Z 0 [Note] Event Scheduler: Loaded 0 events
+gitprojet-mysql  | 2025-11-28T11:20:29.659349Z 0 [Note] mysqld: ready for connections.
+gitprojet-mysql  | Version: '5.7.44'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server (GPL)
+gitprojet-mysql  | 2025-11-28 11:20:29+00:00 [Note] [Entrypoint]: Temporary server started.
 gitprojet-mysql  | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
-gitprojet-mysql  | 2025-11-28T11:15:13.649300Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).
-gitprojet-mysql  | 2025-11-28T11:15:13.650516Z 0 [Note] mysqld (mysqld 5.7.44) starting as process 1 ...
-gitprojet-mysql  | 2025-11-28T11:15:13.654131Z 0 [Note] InnoDB: PUNCH HOLE support available
-gitprojet-mysql  | 2025-11-28T11:15:13.654227Z 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
-gitprojet-mysql  | 2025-11-28T11:15:13.654233Z 0 [Note] InnoDB: Uses event mutexes
-gitprojet-mysql  | 2025-11-28T11:15:13.654236Z 0 [Note] InnoDB: GCC builtin __atomic_thread_fence() is used for memory barrier
-gitprojet-mysql  | 2025-11-28T11:15:13.654238Z 0 [Note] InnoDB: Compressed tables use zlib 1.2.13
-gitprojet-mysql  | 2025-11-28T11:15:13.654241Z 0 [Note] InnoDB: Using Linux native AIO
-gitprojet-mysql  | 2025-11-28T11:15:13.654588Z 0 [Note] InnoDB: Number of pools: 1
-gitprojet-mysql  | 2025-11-28T11:15:13.654683Z 0 [Note] InnoDB: Using CPU crc32 instructions
-gitprojet-mysql  | 2025-11-28T11:15:13.657570Z 0 [Note] InnoDB: Initializing buffer pool, total size = 128M, instances = 1, chunk size = 128M
-gitprojet-mysql  | 2025-11-28T11:15:13.665778Z 0 [Note] InnoDB: Completed initialization of buffer pool
-gitprojet-mysql  | 2025-11-28T11:15:13.669445Z 0 [Note] InnoDB: If the mysqld execution user is authorized, page cleaner thread priority can be changed. See the man page of setpriority().
-gitprojet-mysql  | 2025-11-28T11:15:13.681335Z 0 [ERROR] [FATAL] InnoDB: Table flags are 0 in the data dictionary but the flags in file ./ibdata1 are 0x4800!
-gitprojet-mysql  | 2025-11-28 11:15:13 0x7cf956705880  InnoDB: Assertion failure in thread 137410338904192 in file ut0ut.cc line 921
-gitprojet-mysql  | InnoDB: We intentionally generate a memory trap.
-gitprojet-mysql  | InnoDB: Submit a detailed bug report to http://bugs.mysql.com.
-gitprojet-mysql  | InnoDB: If you get repeated assertion failures or crashes, even
-gitprojet-mysql  | InnoDB: immediately after the mysqld startup, there may be
-gitprojet-mysql  | InnoDB: corruption in the InnoDB tablespace. Please refer to
-gitprojet-mysql  | InnoDB: http://dev.mysql.com/doc/refman/5.7/en/forcing-innodb-recovery.html
-gitprojet-mysql  | InnoDB: about forcing recovery.
-gitprojet-mysql  | 11:15:13 UTC - mysqld got signal 6 ;
-gitprojet-mysql  | This could be because you hit a bug. It is also possible that this binary
-gitprojet-mysql  | or one of the libraries it was linked against is corrupt, improperly built,
-gitprojet-mysql  | or misconfigured. This error can also be caused by malfunctioning hardware.
-gitprojet-mysql  | Attempting to collect some information that could help diagnose the problem.
-gitprojet-mysql  | As this is a crash and something is definitely wrong, the information
-gitprojet-mysql  | collection process might fail.
+gitprojet-mysql  | 2025-11-28T11:20:30.066818Z 3 [Note] InnoDB: Stopping purge
+gitprojet-mysql  | 2025-11-28T11:20:30.073023Z 3 [Note] InnoDB: Resuming purge
+gitprojet-mysql  | 2025-11-28T11:20:30.075360Z 3 [Note] InnoDB: Stopping purge
+gitprojet-mysql  | 2025-11-28T11:20:30.080516Z 3 [Note] InnoDB: Resuming purge
+gitprojet-mysql  | 2025-11-28T11:20:30.083063Z 3 [Note] InnoDB: Stopping purge
+gitprojet-mysql  | 2025-11-28T11:20:30.088896Z 3 [Note] InnoDB: Resuming purge
+gitprojet-mysql  | 2025-11-28T11:20:30.091111Z 3 [Note] InnoDB: Stopping purge
+gitprojet-mysql  | 2025-11-28T11:20:30.096979Z 3 [Note] InnoDB: Resuming purge
+gitprojet-mysql  | Warning: Unable to load '/usr/share/zoneinfo/iso3166.tab' as time zone. Skipping it.
+gitprojet-mysql  | Warning: Unable to load '/usr/share/zoneinfo/leapseconds' as time zone. Skipping it.
+clienthub-api    | 172.22.0.1 - - [28/Nov/2025 11:20:30] "GET / HTTP/1.1" 200 -
+gitprojet-mysql  | Warning: Unable to load '/usr/share/zoneinfo/tzdata.zi' as time zone. Skipping it.
+gitprojet-mysql  | Warning: Unable to load '/usr/share/zoneinfo/zone.tab' as time zone. Skipping it.
+gitprojet-mysql  | Warning: Unable to load '/usr/share/zoneinfo/zone1970.tab' as time zone. Skipping it.
+gitprojet-mysql  | 2025-11-28 11:20:33+00:00 [Note] [Entrypoint]: Creating database gitprojet
+gitprojet-mysql  | 2025-11-28 11:20:33+00:00 [Note] [Entrypoint]: Creating user Ubuntu24
+gitprojet-mysql  | 2025-11-28 11:20:33+00:00 [Note] [Entrypoint]: Giving user Ubuntu24 access to schema gitprojet
 gitprojet-mysql  | 
-gitprojet-mysql  | key_buffer_size=8388608
-gitprojet-mysql  | read_buffer_size=131072
-gitprojet-mysql  | max_used_connections=0
-gitprojet-mysql  | max_threads=151
-gitprojet-mysql  | thread_count=0
-gitprojet-mysql  | connection_count=0
-gitprojet-mysql  | It is possible that mysqld could use up to 
-gitprojet-mysql  | key_buffer_size + (read_buffer_size + sort_buffer_size)*max_threads = 68199 K  bytes of memory
-gitprojet-mysql  | Hope that's ok; if not, decrease some variables in the equation.
+gitprojet-mysql  | 2025-11-28 11:20:33+00:00 [Note] [Entrypoint]: /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/init.sql
 gitprojet-mysql  | 
-gitprojet-mysql  | Thread pointer: 0x0
-gitprojet-mysql  | Attempting backtrace. You can use the following information to find out
-gitprojet-mysql  | where mysqld died. If you see no messages after this, something went
-gitprojet-mysql  | terribly wrong...
-gitprojet-mysql  | stack_bottom = 0 thread_stack 0x40000
-gitprojet-mysql  | mysqld(my_print_stacktrace+0x3b)[0xf11c0b]
-gitprojet-mysql  | mysqld(handle_fatal_signal+0x486)[0x79f7d6]
-gitprojet-mysql  | /lib64/libpthread.so.0(+0xf8c0)[0x7cf9562ee8c0]
-gitprojet-mysql  | /lib64/libc.so.6(gsignal+0x37)[0x7cf954601387]
-gitprojet-mysql  | /lib64/libc.so.6(abort+0x148)[0x7cf954602a78]
-gitprojet-mysql  | mysqld[0x76f748]
-gitprojet-mysql  | mysqld(_ZN2ib5fatalD1Ev+0xfd)[0x10e97cd]
-gitprojet-mysql  | mysqld[0x11a14c2]
-gitprojet-mysql  | mysqld[0x11a1a0b]
-gitprojet-mysql  | mysqld(_Z6fil_ioRK9IORequestbRK9page_id_tRK11page_size_tmmPvS8_+0x208)[0x11ad238]
-gitprojet-mysql  | mysqld(_Z13buf_read_pageRK9page_id_tRK11page_size_t+0xe4)[0x115b594]
-gitprojet-mysql  | mysqld(_Z16buf_page_get_genRK9page_id_tRK11page_size_tmP11buf_block_tmPKcmP5mtr_tb+0x42d)[0x112a96d]
-gitprojet-mysql  | mysqld(_Z31trx_rseg_get_n_undo_tablespacesPm+0x15d)[0x10c892d]
-gitprojet-mysql  | mysqld[0x1090758]
-gitprojet-mysql  | mysqld(_Z34innobase_start_or_create_for_mysqlv+0x3996)[0x1094ea6]
-gitprojet-mysql  | mysqld[0xf5a89f]
-gitprojet-mysql  | mysqld(_Z24ha_initialize_handlertonP13st_plugin_int+0x51)[0x7f2671]
-gitprojet-mysql  | mysqld[0xcf2c85]
-gitprojet-mysql  | mysqld(_Z40plugin_register_builtin_and_init_core_sePiPPc+0x2f0)[0xcf8fb0]
-gitprojet-mysql  | mysqld[0x797cc4]
-gitprojet-mysql  | mysqld(_Z11mysqld_mainiPPc+0xa85)[0x79b4e5]
-gitprojet-mysql  | /lib64/libc.so.6(__libc_start_main+0xf5)[0x7cf9545ed555]
-gitprojet-mysql  | mysqld[0x78f154]
-gitprojet-mysql  | The manual page at http://dev.mysql.com/doc/mysql/en/crashing.html contains
-gitprojet-mysql  | information that should help you find out what is causing the crash.
-clienthub-api    |  * Serving Flask app 'app'
-clienthub-api    |  * Debug mode: off
-clienthub-api    |  * Serving Flask app 'app'
-clienthub-api    |  * Debug mode: off
-clienthub-api    | WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
-clienthub-api    |  * Running on all addresses (0.0.0.0)
-clienthub-api    |  * Running on http://127.0.0.1:5000
-clienthub-api    |  * Running on http://172.22.0.4:5000
-clienthub-api    | Press CTRL+C to quit
-clienthub-api    | WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
-clienthub-api    |  * Running on all addresses (0.0.0.0)
-clienthub-api    |  * Running on http://127.0.0.1:5000
-clienthub-api    |  * Running on http://172.22.0.4:5000
-clienthub-api    | Press CTRL+C to quit
-gitprojet-mysql exited with code 2
-
-clienthub-api    | 172.22.0.1 - - [28/Nov/2025 11:15:16] "GET / HTTP/1.1" 200 -
-clienthub-api    | 172.22.0.1 - - [28/Nov/2025 11:15:17] "GET / HTTP/1.1" 200 -
-clienthub-api    | 172.22.0.1 - - [28/Nov/2025 11:15:17] "GET / HTTP/1.1" 200 -
-
+gitprojet-mysql  | 
+gitprojet-mysql  | 2025-11-28 11:20:33+00:00 [Note] [Entrypoint]: Stopping temporary server
+gitprojet-mysql  | 2025-11-28T11:20:33.523065Z 0 [Note] Giving 0 client threads a chance to die gracefully
+gitprojet-mysql  | 2025-11-28T11:20:33.523115Z 0 [Note] Shutting down slave threads
+gitprojet-mysql  | 2025-11-28T11:20:33.523121Z 0 [Note] Forcefully disconnecting 0 remaining clients
+gitprojet-mysql  | 2025-11-28T11:20:33.523126Z 0 [Note] Event Scheduler: Purging the queue. 0 events
+gitprojet-mysql  | 2025-11-28T11:20:33.523436Z 0 [Note] Binlog end
+gitprojet-mysql  | 2025-11-28T11:20:33.525368Z 0 [Note] Shutting down plugin 'ngram'
+gitprojet-mysql  | 2025-11-28T11:20:33.525407Z 0 [Note] Shutting down plugin 'partition'
+gitprojet-mysql  | 2025-11-28T11:20:33.525412Z 0 [Note] Shutting down plugin 'BLACKHOLE'
+gitprojet-mysql  | 2025-11-28T11:20:33.525415Z 0 [Note] Shutting down plugin 'ARCHIVE'
+gitprojet-mysql  | 2025-11-28T11:20:33.525417Z 0 [Note] Shutting down plugin 'PERFORMANCE_SCHEMA'
+gitprojet-mysql  | 2025-11-28T11:20:33.525439Z 0 [Note] Shutting down plugin 'MRG_MYISAM'
+gitprojet-mysql  | 2025-11-28T11:20:33.525441Z 0 [Note] Shutting down plugin 'MyISAM'
+gitprojet-mysql  | 2025-11-28T11:20:33.525448Z 0 [Note] Shutting down plugin 'INNODB_SYS_VIRTUAL'
+gitprojet-mysql  | 2025-11-28T11:20:33.525451Z 0 [Note] Shutting down plugin 'INNODB_SYS_DATAFILES'
+gitprojet-mysql  | 2025-11-28T11:20:33.525452Z 0 [Note] Shutting down plugin 'INNODB_SYS_TABLESPACES'
+gitprojet-mysql  | 2025-11-28T11:20:33.525454Z 0 [Note] Shutting down plugin 'INNODB_SYS_FOREIGN_COLS'
+gitprojet-mysql  | 2025-11-28T11:20:33.525455Z 0 [Note] Shutting down plugin 'INNODB_SYS_FOREIGN'
+gitprojet-mysql  | 2025-11-28T11:20:33.525457Z 0 [Note] Shutting down plugin 'INNODB_SYS_FIELDS'
+gitprojet-mysql  | 2025-11-28T11:20:33.525458Z 0 [Note] Shutting down plugin 'INNODB_SYS_COLUMNS'
+gitprojet-mysql  | 2025-11-28T11:20:33.525459Z 0 [Note] Shutting down plugin 'INNODB_SYS_INDEXES'
+gitprojet-mysql  | 2025-11-28T11:20:33.525461Z 0 [Note] Shutting down plugin 'INNODB_SYS_TABLESTATS'
+gitprojet-mysql  | 2025-11-28T11:20:33.525462Z 0 [Note] Shutting down plugin 'INNODB_SYS_TABLES'
+gitprojet-mysql  | 2025-11-28T11:20:33.525464Z 0 [Note] Shutting down plugin 'INNODB_FT_INDEX_TABLE'
+gitprojet-mysql  | 2025-11-28T11:20:33.525465Z 0 [Note] Shutting down plugin 'INNODB_FT_INDEX_CACHE'
+gitprojet-mysql  | 2025-11-28T11:20:33.525467Z 0 [Note] Shutting down plugin 'INNODB_FT_CONFIG'
+gitprojet-mysql  | 2025-11-28T11:20:33.525468Z 0 [Note] Shutting down plugin 'INNODB_FT_BEING_DELETED'
+gitprojet-mysql  | 2025-11-28T11:20:33.525470Z 0 [Note] Shutting down plugin 'INNODB_FT_DELETED'
+gitprojet-mysql  | 2025-11-28T11:20:33.525471Z 0 [Note] Shutting down plugin 'INNODB_FT_DEFAULT_STOPWORD'
+gitprojet-mysql  | 2025-11-28T11:20:33.525473Z 0 [Note] Shutting down plugin 'INNODB_METRICS'
+gitprojet-mysql  | 2025-11-28T11:20:33.525474Z 0 [Note] Shutting down plugin 'INNODB_TEMP_TABLE_INFO'
+gitprojet-mysql  | 2025-11-28T11:20:33.525476Z 0 [Note] Shutting down plugin 'INNODB_BUFFER_POOL_STATS'
+gitprojet-mysql  | 2025-11-28T11:20:33.525477Z 0 [Note] Shutting down plugin 'INNODB_BUFFER_PAGE_LRU'
+gitprojet-mysql  | 2025-11-28T11:20:33.525479Z 0 [Note] Shutting down plugin 'INNODB_BUFFER_PAGE'
+gitprojet-mysql  | 2025-11-28T11:20:33.525480Z 0 [Note] Shutting down plugin 'INNODB_CMP_PER_INDEX_RESET'
+gitprojet-mysql  | 2025-11-28T11:20:33.525482Z 0 [Note] Shutting down plugin 'INNODB_CMP_PER_INDEX'
+gitprojet-mysql  | 2025-11-28T11:20:33.525483Z 0 [Note] Shutting down plugin 'INNODB_CMPMEM_RESET'
+gitprojet-mysql  | 2025-11-28T11:20:33.525485Z 0 [Note] Shutting down plugin 'INNODB_CMPMEM'
+gitprojet-mysql  | 2025-11-28T11:20:33.525486Z 0 [Note] Shutting down plugin 'INNODB_CMP_RESET'
+gitprojet-mysql  | 2025-11-28T11:20:33.525488Z 0 [Note] Shutting down plugin 'INNODB_CMP'
+gitprojet-mysql  | 2025-11-28T11:20:33.525489Z 0 [Note] Shutting down plugin 'INNODB_LOCK_WAITS'
+gitprojet-mysql  | 2025-11-28T11:20:33.525491Z 0 [Note] Shutting down plugin 'INNODB_LOCKS'
+gitprojet-mysql  | 2025-11-28T11:20:33.525492Z 0 [Note] Shutting down plugin 'INNODB_TRX'
+gitprojet-mysql  | 2025-11-28T11:20:33.525494Z 0 [Note] Shutting down plugin 'InnoDB'
+gitprojet-mysql  | 2025-11-28T11:20:33.525563Z 0 [Note] InnoDB: FTS optimize thread exiting.
+gitprojet-mysql  | 2025-11-28T11:20:33.525806Z 0 [Note] InnoDB: Starting shutdown...
+gitprojet-mysql  | 2025-11-28T11:20:33.628667Z 0 [Note] InnoDB: Dumping buffer pool(s) to /var/lib/mysql/ib_buffer_pool
+gitprojet-mysql  | 2025-11-28T11:20:33.631313Z 0 [Note] InnoDB: Buffer pool(s) dump completed at 251128 11:20:33
+gitprojet-mysql  | 2025-11-28T11:20:35.352853Z 0 [Note] InnoDB: Shutdown completed; log sequence number 12229756
+gitprojet-mysql  | 2025-11-28T11:20:35.354819Z 0 [Note] InnoDB: Removed temporary tablespace data file: "ibtmp1"
+gitprojet-mysql  | 2025-11-28T11:20:35.354915Z 0 [Note] Shutting down plugin 'MEMORY'
+gitprojet-mysql  | 2025-11-28T11:20:35.354920Z 0 [Note] Shutting down plugin 'CSV'
+gitprojet-mysql  | 2025-11-28T11:20:35.354923Z 0 [Note] Shutting down plugin 'sha256_password'
+gitprojet-mysql  | 2025-11-28T11:20:35.354924Z 0 [Note] Shutting down plugin 'mysql_native_password'
+gitprojet-mysql  | 2025-11-28T11:20:35.355085Z 0 [Note] Shutting down plugin 'binlog'
+gitprojet-mysql  | 2025-11-28T11:20:35.356014Z 0 [Note] mysqld: Shutdown complete
+gitprojet-mysql  | 
+gitprojet-mysql  | 2025-11-28 11:20:35+00:00 [Note] [Entrypoint]: Temporary server stopped
+gitprojet-mysql  | 
+gitprojet-mysql  | 2025-11-28 11:20:35+00:00 [Note] [Entrypoint]: MySQL init process done. Ready for start up.
+gitprojet-mysql  | 
+gitprojet-mysql  | 2025-11-28T11:20:35.731590Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).
+gitprojet-mysql  | 2025-11-28T11:20:35.737957Z 0 [Note] mysqld (mysqld 5.7.44) starting as process 1 ...
+gitprojet-mysql  | 2025-11-28T11:20:35.741394Z 0 [Note] InnoDB: PUNCH HOLE support available
+gitprojet-mysql  | 2025-11-28T11:20:35.741510Z 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+gitprojet-mysql  | 2025-11-28T11:20:35.741517Z 0 [Note] InnoDB: Uses event mutexes
+gitprojet-mysql  | 2025-11-28T11:20:35.741519Z 0 [Note] InnoDB: GCC builtin __atomic_thread_fence() is used for memory barrier
+gitprojet-mysql  | 2025-11-28T11:20:35.741522Z 0 [Note] InnoDB: Compressed tables use zlib 1.2.13
+gitprojet-mysql  | 2025-11-28T11:20:35.741524Z 0 [Note] InnoDB: Using Linux native AIO
+gitprojet-mysql  | 2025-11-28T11:20:35.741977Z 0 [Note] InnoDB: Number of pools: 1
+gitprojet-mysql  | 2025-11-28T11:20:35.742275Z 0 [Note] InnoDB: Using CPU crc32 instructions
+gitprojet-mysql  | 2025-11-28T11:20:35.745673Z 0 [Note] InnoDB: Initializing buffer pool, total size = 128M, instances = 1, chunk size = 128M
+gitprojet-mysql  | 2025-11-28T11:20:35.754402Z 0 [Note] InnoDB: Completed initialization of buffer pool
+gitprojet-mysql  | 2025-11-28T11:20:35.757135Z 0 [Note] InnoDB: If the mysqld execution user is authorized, page cleaner thread priority can be changed. See the man page of setpriority().
+gitprojet-mysql  | 2025-11-28T11:20:35.769615Z 0 [Note] InnoDB: Highest supported file format is Barracuda.
+gitprojet-mysql  | 2025-11-28T11:20:35.783196Z 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+gitprojet-mysql  | 2025-11-28T11:20:35.783299Z 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+gitprojet-mysql  | 2025-11-28T11:20:35.802655Z 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+gitprojet-mysql  | 2025-11-28T11:20:35.803916Z 0 [Note] InnoDB: 96 redo rollback segment(s) found. 96 redo rollback segment(s) are active.
+gitprojet-mysql  | 2025-11-28T11:20:35.803986Z 0 [Note] InnoDB: 32 non-redo rollback segment(s) are active.
+gitprojet-mysql  | 2025-11-28T11:20:35.805982Z 0 [Note] InnoDB: 5.7.44 started; log sequence number 12229756
+gitprojet-mysql  | 2025-11-28T11:20:35.806428Z 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+gitprojet-mysql  | 2025-11-28T11:20:35.807244Z 0 [Note] Plugin 'FEDERATED' is disabled.
+gitprojet-mysql  | 2025-11-28T11:20:35.812501Z 0 [Note] InnoDB: Buffer pool(s) load completed at 251128 11:20:35
+gitprojet-mysql  | 2025-11-28T11:20:35.815204Z 0 [Note] Found ca.pem, server-cert.pem and server-key.pem in data directory. Trying to enable SSL support using them.
+gitprojet-mysql  | 2025-11-28T11:20:35.815234Z 0 [Note] Skipping generation of SSL certificates as certificate files are present in data directory.
+gitprojet-mysql  | 2025-11-28T11:20:35.815240Z 0 [Warning] A deprecated TLS version TLSv1 is enabled. Please use TLSv1.2 or higher.
+gitprojet-mysql  | 2025-11-28T11:20:35.815241Z 0 [Warning] A deprecated TLS version TLSv1.1 is enabled. Please use TLSv1.2 or higher.
+gitprojet-mysql  | 2025-11-28T11:20:35.815877Z 0 [Warning] CA certificate ca.pem is self signed.
+gitprojet-mysql  | 2025-11-28T11:20:35.815971Z 0 [Note] Skipping generation of RSA key pair as key files are present in data directory.
+gitprojet-mysql  | 2025-11-28T11:20:35.816438Z 0 [Note] Server hostname (bind-address): '*'; port: 3306
+gitprojet-mysql  | 2025-11-28T11:20:35.817306Z 0 [Note] IPv6 is available.
+gitprojet-mysql  | 2025-11-28T11:20:35.817771Z 0 [Note]   - '::' resolves to '::';
+gitprojet-mysql  | 2025-11-28T11:20:35.817834Z 0 [Note] Server socket created on IP: '::'.
+gitprojet-mysql  | 2025-11-28T11:20:35.820622Z 0 [Warning] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+gitprojet-mysql  | 2025-11-28T11:20:35.832567Z 0 [Note] Event Scheduler: Loaded 0 events
+gitprojet-mysql  | 2025-11-28T11:20:35.834014Z 0 [Note] mysqld: ready for connections.
+gitprojet-mysql  | Version: '5.7.44'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server (GPL)
 
